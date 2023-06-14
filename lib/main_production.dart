@@ -1,9 +1,13 @@
 import 'package:beegains/bootstrap.dart';
-import 'package:beegains/repositories/auth_repository.dart';
+import 'package:beegains/firebase_options.dart';
 import 'package:beegains/screens/app.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/widgets.dart';
 
-void main() {
-  final authRepository = AuthRepository();
-
-  bootstrap(() => App(authRepository: authRepository));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await bootstrap(App.new);
 }

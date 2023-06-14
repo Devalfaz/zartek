@@ -1,67 +1,111 @@
-import 'package:beegains/models/response_model.dart';
-import 'package:beegains/models/user_model.dart';
+import 'dart:developer';
+
+// import 'package:beegains/models/user_model.dart';
 import 'package:beegains/repositories/api.dart';
-import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
-  User currentUser = User.empty;
-  Stream<User> get user => Stream.value(currentUser);
+  final firebaseAuth = FirebaseAuth.instance;
+  final currentUser = FirebaseAuth.instance.currentUser;
+  Stream<User?> get user => firebaseAuth.authStateChanges();
   API api = API();
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> loginWithGoogle() async {
     try {
-      final response = await api.sendRequest.post<ResponseModel<User>>(
-        '/login',
-        data: {
-          'username': email,
-          'password': password,
-        },
+      //Login with google
+      final googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) return;
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
-      currentUser =
-          ResponseModel<User>.fromJson(response.data! as Map<String, dynamic>)
-              .data;
-    } on DioException catch (e) {
-      final error = ResponseModel<dynamic>.fromJson(
-        e.response?.data as Map<String, dynamic>,
-      );
-      throw LogInWithEmailAndPasswordFailure.fromCode(
-        error.message,
-      );
+      await firebaseAuth.signInWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'user-not-found':
+          throw Exception('No user found for that email.');
+        case 'user-disabled':
+          throw Exception('User disabled.');
+        case 'invalid-credential':
+          throw Exception('Invalid credential.');
+      }
+      log('Error: ${e.code}');
+    } catch (e) {
+      log('Error: $e');
     }
+    return;
+  }
 
+  //Login with mobile
+  Future<void> loginWithMobile(String phone) async {
+    try {
+      await firebaseAuth.verifyPhoneNumber(
+        phoneNumber: phone,
+        verificationCompleted: (phoneAuthCredential) async {
+          await firebaseAuth.signInWithCredential(phoneAuthCredential);
+        },
+        verificationFailed: (verificationFailed) {
+          throw Exception(verificationFailed.message);
+        },
+        codeSent: (verificationId, resendingToken) async {
+          // //Show dialog to user to enter the otp
+          // var smsCode = '';
+          // //Create a manual controller to get the otp from the user
+          // final smsCodeController = TextEditingController();
+          // //Show the dialog to the user
+          // await showDialog(
+          //   context: null!,
+          //   barrierDismissible: false,
+          //   builder: (context) => AlertDialog(
+          //     title: Text('Enter SMS Code'),
+          //     content: Column(
+          //       mainAxisSize: MainAxisSize.min,
+          //       children: [
+          //         TextField(
+          //           controller: smsCodeController,
+          //           keyboardType: TextInputType.number,
+          //           onChanged: (value) {
+          //             smsCode = value;
+          //           },
+          //         ),
+          //       ],
+          //     ),
+          //     actions: [
+          //       TextButton(
+          //         onPressed: () async {
+          //           final code = smsCodeController.text.trim();
+          //           var credential = PhoneAuthProvider.credential(
+          //             verificationId: verificationId,
+          //             smsCode: code,
+          //           );
+          //           await firebaseAuth.signInWithCredential(credential);
+          //         },
+          //         child: Text('Done'),
+          //       ),
+          //     ],
+          //   ),
+          // );
+        },
+        codeAutoRetrievalTimeout: (verificationId) {},
+      );
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'user-not-found':
+          throw Exception('No user found for that email.');
+        case 'user-disabled':
+          throw Exception('User disabled.');
+        case 'invalid-credential':
+          throw Exception('Invalid credential.');
+      }
+      log('Error: ${e.code}');
+    }
     return;
   }
 
   Future<void> logout() async {
-    currentUser = User.empty;
+    await firebaseAuth.signOut();
     return;
   }
-}
-
-class LogInWithEmailAndPasswordFailure implements Exception {
-  /// {@macro log_in_with_email_and_password_failure}
-  const LogInWithEmailAndPasswordFailure([
-    this.message = 'An unknown exception occurred.',
-  ]);
-
-  factory LogInWithEmailAndPasswordFailure.fromCode(String code) {
-    switch (code) {
-      case 'Invalid Credentials':
-        return const LogInWithEmailAndPasswordFailure(
-          'Invalid Credentials. Please try again.',
-        );
-      case 'User Disabled':
-        return const LogInWithEmailAndPasswordFailure(
-          'This user has been disabled. Please contact support for help.',
-        );
-      default:
-        return const LogInWithEmailAndPasswordFailure();
-    }
-  }
-
-  /// The associated error message.
-  final String message;
 }

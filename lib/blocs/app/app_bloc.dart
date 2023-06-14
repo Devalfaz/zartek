@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:beegains/models/models.dart';
+// import 'package:beegains/models/models.dart';
 import 'package:beegains/repositories/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
 part 'app_event.dart';
@@ -13,28 +14,34 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({required AuthRepository authRepository})
       : _authRepository = authRepository,
         super(
-          authRepository.currentUser.isNotEmpty
-              ? AppState.authenticated(authRepository.currentUser)
+          authRepository.currentUser != null
+              ? const AppState.authenticated()
               : const AppState.unauthenticated(),
         ) {
-    on<AppUserChanged>(_onUserChanged);
+    // _userSubscription = _authRepository.user.listen(
+    //   (user) => add(AppSignupRequested(user)),
+    // );
+    on<AppSignupRequested>(_onSignupRequest);
     on<AppLogoutRequested>(_onLogoutRequested);
-    _authRepository.user.listen((user) {
-      add(AppUserChanged(user));
-    });
+    on<AppSignupLoading>(
+      (event, emit) => emit(const AppState.loginLoading()),
+    );
   }
   final AuthRepository _authRepository;
-  StreamSubscription<User>? _userSubscription;
+  StreamSubscription<User?>? _userSubscription;
 
-  void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) {
+  void _onSignupRequest(AppSignupRequested event, Emitter<AppState> emit) {
+    emit(const AppState.loginLoading());
+    _authRepository.loginWithGoogle();
     emit(
-      event.user.isNotEmpty
-          ? AppState.authenticated(event.user)
+      event.user != null
+          ? const AppState.authenticated()
           : const AppState.unauthenticated(),
     );
   }
 
   void _onLogoutRequested(AppLogoutRequested event, Emitter<AppState> emit) {
+    emit(const AppState.unauthenticated());
     unawaited(_authRepository.logout());
   }
 

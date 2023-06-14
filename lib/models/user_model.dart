@@ -50,7 +50,7 @@ class User extends Equatable {
 }
 
 @JsonSerializable()
-class Employee {
+class Employee extends Equatable {
   const Employee({
     required this.id,
     required this.employeeName,
@@ -74,10 +74,19 @@ class Employee {
   final int franchiseId;
   final Franchise franchise;
   Map<String, dynamic> toJson() => _$EmployeeToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        employeeName,
+        employeeCode,
+        franchiseId,
+        franchise,
+      ];
 }
 
 @JsonSerializable()
-class Franchise {
+class Franchise extends Equatable {
   const Franchise({
     required this.id,
     required this.franchiseeCode,
@@ -92,10 +101,13 @@ class Franchise {
   final int id;
   final String franchiseeCode;
   Map<String, dynamic> toJson() => _$FranchiseToJson(this);
+
+  @override
+  List<Object?> get props => [id, franchiseeCode];
 }
 
 @JsonSerializable()
-class UserType {
+class UserType extends Equatable {
   const UserType({
     required this.id,
     required this.name,
@@ -110,4 +122,7 @@ class UserType {
   final int id;
   final String name;
   Map<String, dynamic> toJson() => _$UserTypeToJson(this);
+
+  @override
+  List<Object?> get props => [id, name];
 }
