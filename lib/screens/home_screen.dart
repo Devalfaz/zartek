@@ -1,10 +1,9 @@
-import 'package:beegains/blocs/app/app_bloc.dart';
-import 'package:beegains/blocs/cart/cart_bloc.dart';
+import 'package:beegains/blocs/blocs.dart';
 import 'package:beegains/config/routes.dart';
-import 'package:beegains/cubits/restaurant/restaurant_cubit.dart';
-import 'package:beegains/repositories/restaurant_repository.dart';
-import 'package:beegains/widgets/counter_bar.dart';
-import 'package:beegains/widgets/dish_type.dart';
+import 'package:beegains/cubits/cubits.dart';
+import 'package:beegains/l10n/l10n.dart';
+import 'package:beegains/repositories/repositories.dart';
+import 'package:beegains/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -106,6 +105,35 @@ class _RestaurantScreenState extends State<RestaurantScreen>
                       ],
                     ),
                   ),
+                  //List Tile for changing Theme using ThemeCubit
+                  ListTile(
+                    leading: const Icon(Icons.lightbulb),
+                    title: const Text('Change Theme'),
+                    onTap: () {
+                      context.read<ThemeCubit>().toggleTheme();
+                    },
+                  ),
+                  //List Tile for showing internet status using InternetCubit
+                  ListTile(
+                    leading: const Icon(Icons.wifi),
+                    title: const Text('Check Internet'),
+                    onTap: () {
+                      if (context.read<InternetCubit>().state
+                          is InternetConnected) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Connected'),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Not Connected'),
+                          ),
+                        );
+                      }
+                    },
+                  ),
                   ListTile(
                     leading: const Icon(Icons.logout),
                     title: const Text('Logout'),
@@ -117,7 +145,7 @@ class _RestaurantScreenState extends State<RestaurantScreen>
               ),
             ),
             appBar: AppBar(
-              title: const Text('HomeScreen'),
+              title: Text(AppLocalizations.of(context).homeAppBarTitle),
               bottom: TabBar(
                 isScrollable: true,
                 controller: _tabController,

@@ -16,6 +16,16 @@ class ThemeCubit extends Cubit<ThemeState> {
         : _setTheme(ThemeMode.dark);
   }
 
+  // Toggle between light and dark theme
+  void toggleTheme() {
+    final currentThemeMode = state.themeMode;
+    if (currentThemeMode == ThemeMode.light) {
+      _setTheme(ThemeMode.dark);
+    } else {
+      _setTheme(ThemeMode.light);
+    }
+  }
+
   void _setTheme(ThemeMode themeMode) {
     AppTheme.setStatusBarAndNavigationBarColors(themeMode);
     emit(ThemeState(themeMode: themeMode));

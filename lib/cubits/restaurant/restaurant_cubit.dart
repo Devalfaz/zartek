@@ -11,7 +11,6 @@ class RestaurantCubit extends Cubit<RestaurantsState> {
   final RestaurantRepository repository;
   Future<void> _onInitial() async {
     try {
-      print('RestaurantCubit: _onInitial');
       final restaurants = await repository.getRestaurants();
       emit(RestaurantsInitialLoaded(restaurants));
     } catch (e) {

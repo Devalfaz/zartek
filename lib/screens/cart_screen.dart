@@ -1,6 +1,5 @@
-import 'package:beegains/blocs/cart/cart_bloc.dart';
-import 'package:beegains/widgets/counter_bar.dart';
-import 'package:beegains/widgets/dish_type.dart';
+import 'package:beegains/blocs/blocs.dart';
+import 'package:beegains/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

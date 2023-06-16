@@ -18,20 +18,30 @@ class AppBloc extends Bloc<AppEvent, AppState> {
               ? const AppState.authenticated()
               : const AppState.unauthenticated(),
         ) {
+    // When the user logins emit AppsState.authenticated
     _userSubscription = _authRepository.user.listen(
-      (user) {
-        print(user?.displayName);
-        // add(AppSignupRequested(user));
-      },
+      (user) => add(AppUserChanged(user: user)),
     );
+    on<AppUserChanged>(_onUserChanged);
     on<AppSignupRequested>(_onSignupRequest);
     on<AppLogoutRequested>(_onLogoutRequested);
     on<AppSignupLoading>(
       (event, emit) => emit(const AppState.loginLoading()),
     );
   }
+  //Getter for AuthRepository user
+  Stream<User?> get user => _authRepository.user;
+
   final AuthRepository _authRepository;
   StreamSubscription<User?>? _userSubscription;
+
+  void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) {
+    emit(
+      event.user != null
+          ? const AppState.authenticated()
+          : const AppState.unauthenticated(),
+    );
+  }
 
   void _onSignupRequest(AppSignupRequested event, Emitter<AppState> emit) {
     emit(const AppState.loginLoading());
