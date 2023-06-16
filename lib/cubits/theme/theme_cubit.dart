@@ -1,4 +1,4 @@
-import 'package:beegains/config/theme.dart';
+import 'package:zartek/config/theme.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 

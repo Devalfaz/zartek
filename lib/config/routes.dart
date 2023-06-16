@@ -5,10 +5,10 @@
 
 import 'dart:async';
 
-import 'package:beegains/blocs/blocs.dart';
-import 'package:beegains/screens/cart_screen.dart';
-import 'package:beegains/screens/home_screen.dart';
-import 'package:beegains/screens/login_screen.dart';
+import 'package:zartek/blocs/blocs.dart';
+import 'package:zartek/screens/cart_screen.dart';
+import 'package:zartek/screens/home_screen.dart';
+import 'package:zartek/screens/login_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 

@@ -1,4 +1,4 @@
-import 'package:beegains/config/constants.dart';
+import 'package:zartek/config/constants.dart';
 import 'package:flutter/material.dart';
 
 class DishType extends StatelessWidget {

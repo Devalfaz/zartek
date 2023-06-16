@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(beegains LANGUAGES CXX)
+project(zartek LANGUAGES CXX)
 
-set(BINARY_NAME "beegains")
+set(BINARY_NAME "zartek")
 
 cmake_policy(SET CMP0063 NEW)
 

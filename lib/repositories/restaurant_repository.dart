@@ -1,5 +1,5 @@
-import 'package:beegains/models/restaurant.dart';
-import 'package:beegains/repositories/api.dart';
+import 'package:zartek/models/restaurant.dart';
+import 'package:zartek/repositories/api.dart';
 
 class RestaurantRepository {
   RestaurantRepository({required API api}) : _api = api;

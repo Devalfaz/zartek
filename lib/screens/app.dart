@@ -1,11 +1,11 @@
-import 'package:beegains/blocs/blocs.dart';
-import 'package:beegains/config/routes.dart';
-import 'package:beegains/cubits/cubits.dart';
-import 'package:beegains/l10n/l10n.dart';
-import 'package:beegains/repositories/repositories.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zartek/blocs/blocs.dart';
+import 'package:zartek/config/routes.dart';
+import 'package:zartek/cubits/cubits.dart';
+import 'package:zartek/l10n/l10n.dart';
+import 'package:zartek/repositories/repositories.dart';
 
 class App extends StatelessWidget {
   const App({

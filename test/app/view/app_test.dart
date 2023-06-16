@@ -1,5 +1,5 @@
-import 'package:beegains/app/app.dart';
-import 'package:beegains/counter/counter.dart';
+import 'package:zartek/app/app.dart';
+import 'package:zartek/counter/counter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

@@ -1,5 +1,5 @@
-import 'package:beegains/blocs/blocs.dart';
-import 'package:beegains/models/models.dart';
+import 'package:zartek/blocs/blocs.dart';
+import 'package:zartek/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

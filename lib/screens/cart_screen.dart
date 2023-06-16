@@ -1,8 +1,8 @@
-import 'package:beegains/blocs/blocs.dart';
-import 'package:beegains/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zartek/blocs/blocs.dart';
+import 'package:zartek/widgets/widgets.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});

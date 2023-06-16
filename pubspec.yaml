@@ -1,4 +1,4 @@
-name: beegains
+name: zartek
 description: A Very Good Project created by Very Good CLI.
 version: 1.0.0+1
 publish_to: none
@@ -38,6 +38,7 @@ dev_dependencies:
   json_serializable: ^6.7.0
   mocktail: ^0.3.0
   very_good_analysis: ^5.0.0
+  change_app_package_name: ^1.1.0
 
 
 flutter:

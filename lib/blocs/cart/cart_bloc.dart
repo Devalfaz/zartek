@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:beegains/models/models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:zartek/models/models.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';

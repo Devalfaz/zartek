@@ -1,11 +1,10 @@
 import 'dart:async';
 
-// import 'package:beegains/models/models.dart';
-import 'package:beegains/repositories/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:zartek/repositories/auth_repository.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';

@@ -1,5 +1,5 @@
-import 'package:beegains/models/restaurant.dart';
-import 'package:beegains/repositories/restaurant_repository.dart';
+import 'package:zartek/models/restaurant.dart';
+import 'package:zartek/repositories/restaurant_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'restaurant_state.dart';

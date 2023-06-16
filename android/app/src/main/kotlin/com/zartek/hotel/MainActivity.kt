@@ -1,4 +1,4 @@
-package com.example.verygoodcore.beegains
+package com.zartek.hotel
 
 import io.flutter.embedding.android.FlutterActivity
 

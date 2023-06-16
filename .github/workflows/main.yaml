@@ -1,4 +1,4 @@
-name: beegains
+name: zartek
 
 concurrency:
   group: $-$

@@ -1,4 +1,4 @@
-import 'package:beegains/config/constants.dart';
+import 'package:zartek/config/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
