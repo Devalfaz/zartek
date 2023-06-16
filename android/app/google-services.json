@@ -7,14 +7,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:389202053049:android:0dfcb172daeabce0e9d868",
+        "mobilesdk_app_id": "1:389202053049:android:35ce4cec5893168ae9d868",
         "android_client_info": {
-          "package_name": "com.example.verygoodcore.zartek"
+          "package_name": "com.zartek.hotel"
         }
       },
       "oauth_client": [
         {
-          "client_id": "389202053049-dfv57l2frrqqbrn4fci0599k08dph4u7.apps.googleusercontent.com",
+          "client_id": "389202053049-e95cjppq8sah8npp3tjs6nm3hjs1vaib.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zartek.hotel",
+            "certificate_hash": "5aa8a082ae8d16e5eca109a8e092ed0972d60df2"
+          }
+        },
+        {
+          "client_id": "389202053049-tgvfgi1plefc3frgasvuiidu92qlekr6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +37,13 @@
             {
               "client_id": "389202053049-dfv57l2frrqqbrn4fci0599k08dph4u7.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "389202053049-7a82a804cug948prpfidqplqlv66unmj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.verygoodcore.beegains"
+              }
             }
           ]
         }
