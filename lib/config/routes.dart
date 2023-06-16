@@ -6,6 +6,7 @@
 import 'dart:async';
 
 import 'package:beegains/blocs/blocs.dart';
+import 'package:beegains/screens/cart_screen.dart';
 import 'package:beegains/screens/home_screen.dart';
 import 'package:beegains/screens/login_screen.dart';
 import 'package:flutter/widgets.dart';
@@ -14,6 +15,9 @@ import 'package:go_router/go_router.dart';
 class AppRouter {
   AppRouter(this.appBloc);
   final AppBloc appBloc;
+  static const homeRoute = '/';
+  static const loginRoute = '/login';
+  static const cartRoute = '/cart';
 
   late final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
@@ -26,15 +30,10 @@ class AppRouter {
         },
         routes: [
           GoRoute(
-            name: 'product_list',
-            path: 'product_list/:category',
+            name: 'cart',
+            path: 'cart',
             builder: (BuildContext context, GoRouterState state) {
-              // return ProductListScreen(
-              //   category: state.params['category']!,
-              //   asc: state.queryParams['sort'] == 'asc',
-              //   quantity: int.parse(state.queryParams['filter'] ?? '0'),
-              // );
-              return const Placeholder();
+              return const CartScreen();
             },
           ),
         ],
@@ -47,11 +46,10 @@ class AppRouter {
     ],
     redirect: (BuildContext context, GoRouterState state) {
       final loggedIn = appBloc.state.status == AppStatus.authenticated;
-      final loggingIn = state.matchedLocation == '/login';
-      if (!loggedIn) {
-        return loggingIn ? null : '/login';
-      }
-      if (loggingIn) {
+      final isLoginScreen = state.location == '/login';
+      if (!loggedIn && !isLoginScreen) {
+        return '/login';
+      } else if (loggedIn && isLoginScreen) {
         return '/';
       }
       return null;

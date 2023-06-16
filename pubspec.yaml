@@ -28,6 +28,7 @@ dependencies:
   firebase_core:
   firebase_auth:
   google_sign_in:
+  hydrated_bloc: ^9.1.1
 
 dev_dependencies:
   bloc_test: ^9.1.2
@@ -42,3 +43,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - assets/data.json

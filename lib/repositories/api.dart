@@ -4,7 +4,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class API {
   API() {
-    _dio.options.baseUrl = serverUrl;
+    // _dio.options.baseUrl = serverUrl;
     _dio.options.connectTimeout = connectTimeout;
     _dio.options.receiveTimeout = receiveTimeout;
     _dio.interceptors.add(PrettyDioLogger());

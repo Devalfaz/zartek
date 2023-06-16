@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 // import 'package:beegains/models/user_model.dart';
-import 'package:beegains/repositories/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -9,7 +8,6 @@ class AuthRepository {
   final firebaseAuth = FirebaseAuth.instance;
   final currentUser = FirebaseAuth.instance.currentUser;
   Stream<User?> get user => firebaseAuth.authStateChanges();
-  API api = API();
 
   Future<void> loginWithGoogle() async {
     try {

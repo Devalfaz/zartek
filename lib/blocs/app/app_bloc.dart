@@ -18,9 +18,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
               ? const AppState.authenticated()
               : const AppState.unauthenticated(),
         ) {
-    // _userSubscription = _authRepository.user.listen(
-    //   (user) => add(AppSignupRequested(user)),
-    // );
+    _userSubscription = _authRepository.user.listen(
+      (user) {
+        print(user?.displayName);
+        // add(AppSignupRequested(user));
+      },
+    );
     on<AppSignupRequested>(_onSignupRequest);
     on<AppLogoutRequested>(_onLogoutRequested);
     on<AppSignupLoading>(
