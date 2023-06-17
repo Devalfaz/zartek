@@ -77,10 +77,18 @@ class _CartScreenState extends State<CartScreen> {
                                     //Total Price times the number of items
                                     Text(
                                       '${item.key.dishCurrency} ${item.key.dishPrice * item.value}',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green.shade900,
+                                      ),
                                     ),
                                     // Total Calories times the number of items
                                     Text(
                                       '${item.key.dishCalories * item.value} calories',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -110,8 +118,9 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                               Text(
                                 '${item.key.dishCurrency} ${item.key.dishPrice}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.green.shade900,
                                 ),
                               ),
                             ],
@@ -127,12 +136,14 @@ class _CartScreenState extends State<CartScreen> {
                           'Total Amount',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
+                            color: Colors.green,
                           ),
                         ),
                         trailing: Text(
                           '${state.items.keys.firstOrNull?.dishCurrency ?? 0} ${state.total}',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
+                            color: Colors.green,
                           ),
                         ),
                       ),

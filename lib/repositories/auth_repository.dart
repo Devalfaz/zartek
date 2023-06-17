@@ -2,6 +2,7 @@ import 'dart:developer';
 
 // import 'package:zartek/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
@@ -37,7 +38,7 @@ class AuthRepository {
   }
 
   //Login with mobile
-  Future<void> loginWithMobile(String phone) async {
+  Future<void> loginWithMobile(String phone, BuildContext context) async {
     try {
       await firebaseAuth.verifyPhoneNumber(
         phoneNumber: phone,
@@ -48,43 +49,43 @@ class AuthRepository {
           throw Exception(verificationFailed.message);
         },
         codeSent: (verificationId, resendingToken) async {
-          // //Show dialog to user to enter the otp
-          // var smsCode = '';
-          // //Create a manual controller to get the otp from the user
-          // final smsCodeController = TextEditingController();
-          // //Show the dialog to the user
-          // await showDialog(
-          //   context: null!,
-          //   barrierDismissible: false,
-          //   builder: (context) => AlertDialog(
-          //     title: Text('Enter SMS Code'),
-          //     content: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: [
-          //         TextField(
-          //           controller: smsCodeController,
-          //           keyboardType: TextInputType.number,
-          //           onChanged: (value) {
-          //             smsCode = value;
-          //           },
-          //         ),
-          //       ],
-          //     ),
-          //     actions: [
-          //       TextButton(
-          //         onPressed: () async {
-          //           final code = smsCodeController.text.trim();
-          //           var credential = PhoneAuthProvider.credential(
-          //             verificationId: verificationId,
-          //             smsCode: code,
-          //           );
-          //           await firebaseAuth.signInWithCredential(credential);
-          //         },
-          //         child: Text('Done'),
-          //       ),
-          //     ],
-          //   ),
-          // );
+          //Show dialog to user to enter the otp
+          var smsCode = '';
+          //Create a manual controller to get the otp from the user
+          final smsCodeController = TextEditingController();
+          //Show the dialog to the user
+          await showDialog<void>(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+              title: const Text('Enter SMS Code'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: smsCodeController,
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      smsCode = value;
+                    },
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                    final code = smsCodeController.text.trim();
+                    final credential = PhoneAuthProvider.credential(
+                      verificationId: verificationId,
+                      smsCode: code,
+                    );
+                    await firebaseAuth.signInWithCredential(credential);
+                  },
+                  child: const Text('Done'),
+                ),
+              ],
+            ),
+          );
         },
         codeAutoRetrievalTimeout: (verificationId) {},
       );
